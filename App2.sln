@@ -5,9 +5,9 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App2.Android", "App2.Android\App2.Android.csproj", "{B95BD252-CF3F-43A5-BE9E-F612CAA8AEB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App2.iOS", "App2.iOS\App2.iOS.csproj", "{32BBD948-A8F7-4EA1-A699-48F3C202DCCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App2.IOS", "App2.iOS\App2.IOS.csproj", "{32BBD948-A8F7-4EA1-A699-48F3C202DCCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App2", "App2\App2.csproj", "{A437AFC8-5308-4BE7-A6C1-2D5B1B3E92E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App2", "App2\App2.csproj", "{A437AFC8-5308-4BE7-A6C1-2D5B1B3E92E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

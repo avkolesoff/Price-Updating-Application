@@ -3,10 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App2.Views.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="15, 30, 15, 30">
+
+            <Label Text="Актуализация цен"
+                   FontSize="20" 
+                   TextColor="Black" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"></Label>
+
+            <Label Text="Чтобы узнать актуальные цены товаров вашей сметы,
+                   загрузите файл" 
+                   FontSize="15" 
+                   TextColor="Black" 
+                   HorizontalTextAlignment="Center"
+                   ></Label>
+
+            <Button Text="Добавить файл"
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Margin="10, 200, 10, 10"
+                    CornerRadius="15"
+                    FontSize="18"
+                    ></Button>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

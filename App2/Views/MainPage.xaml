@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="App2.Views.MainPage">
+             x:Class="App2.Views.MainPage"
+             Title="Добавить файл">
+             
     <ContentPage.Content>
+        
         <StackLayout Padding="15, 30, 15, 30">
 
             <Label Text="Актуализация цен"
@@ -12,19 +15,19 @@
                    HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"></Label>
 
-            <Label Text="Чтобы узнать актуальные цены товаров вашей сметы,
-                   загрузите файл" 
+            <Label Text="Чтобы узнать актуальные цены товаров вашей сметы, загрузите файл" 
                    FontSize="15" 
                    TextColor="Black" 
                    HorizontalTextAlignment="Center"
                    ></Label>
 
             <Button Text="Добавить файл"
-                    BackgroundColor="Gray"
+                    BackgroundColor="Blue"
                     TextColor="White"
                     Margin="10, 200, 10, 10"
-                    CornerRadius="15"
+                    CornerRadius="13"
                     FontSize="18"
+                    Clicked="AddFileButton_Clicked"
                     ></Button>
 
         </StackLayout>

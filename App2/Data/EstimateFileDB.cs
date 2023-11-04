@@ -6,7 +6,7 @@ using App2.Models;
 
 namespace App2.Data
 {
-    class EstimateFileDB
+    public class EstimateFileDB
     {
         readonly SQLiteAsyncConnection _connection;
 

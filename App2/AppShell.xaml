@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:App2.Views"
+       xmlns:views="clr-namespace:App2.Views"
        Title="Prices Updater"
        x:Class="App2.AppShell">
 
@@ -79,6 +79,11 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Добавить файл" Icon="icon_about.png">
-        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
     </FlyoutItem>
+    
+    <FlyoutItem Title="Мои файлы" Icon="icon_about.png">
+        <ShellContent Route="MyFilesPage" ContentTemplate="{DataTemplate views:MyFilesPage}" />
+    </FlyoutItem>
+
 </Shell>

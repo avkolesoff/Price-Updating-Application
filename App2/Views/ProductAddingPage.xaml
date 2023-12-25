@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:App2.ViewModels"
+             x:DataType="viewmodels:ProductAddingViewModel"
+             x:Class="App2.Views.ProductAddingPage"
+             Title="{Binding Title}">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BorderColor="Black" Margin="10, 100, 10, 10">
+                <StackLayout>
+                    <Frame>
+                        <Entry Placeholder="Наименование товара"
+                               Text="{Binding Name}"
+                               TextColor="Black"
+                               PlaceholderColor="DarkGray"/>
+                    </Frame>
+
+                    <Frame>
+                        <Entry Placeholder="Цена"
+                               Text="{Binding Price}"
+                               TextColor="Black"
+                               PlaceholderColor="DarkGray"/>
+                    </Frame>
+
+                    <Frame>
+                        <Entry Placeholder="Ссылка"
+                               Text="{Binding Link}"
+                               TextColor="Black"
+                               PlaceholderColor="DarkGray"/>
+                    </Frame>
+                </StackLayout>
+                
+            </Frame>
+            <Button Text="Сохранить"
+                FontSize="18"
+                Margin="15, 15, 15, 30"
+                BackgroundColor="Blue"
+                HorizontalOptions="Fill"
+                VerticalOptions="End"
+                Command="{Binding SaveCommand}"
+                CornerRadius="30"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

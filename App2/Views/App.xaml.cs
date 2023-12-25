@@ -1,34 +1,20 @@
 ﻿using Xamarin.Forms;
 using App2.Data;
-using System.IO;
+using App2.Views;
 using System;
+using System.IO;
 
 namespace App2
 {
-
     public partial class App : Application
     {
-        static EstimateFileDB estimateFileDB;
-        public static EstimateFileDB EstimateFileDB
-        {
-            get
-            {
-                if (estimateFileDB == null)
-                {
-                    estimateFileDB = new EstimateFileDB(
-                        Path.Combine(Environment.GetFolderPath(Environment
-                        .SpecialFolder
-                        .LocalApplicationData), "EstimateFilesDatabase.db3"));
-                }
-                return estimateFileDB;
-            }
-        }
-
         public App()
         {
             InitializeComponent();
 
             MainPage = new AppShell();
+            Routing.RegisterRoute(nameof(DitalFilePage), typeof(DitalFilePage));
+
         }
 
         protected override void OnStart()

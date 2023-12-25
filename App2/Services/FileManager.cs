@@ -1,19 +1,14 @@
-﻿using App2.Models;
-using System;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using System.Linq;
-using System.Threading.Tasks;
+
+using System.Collections.ObjectModel;
+using App2.Data;
 
 namespace App2.Services
 {
     public class FileManager
     {
-        private static string UpdateProductPrice(string productURL)
-        {
-            return "$10000";
-        }
-
-        private static void UpdateExcelFiles (string filePath)
+        public static void UpdateExcelFile (string filePath)
         {
             var workBook = new XLWorkbook(file: filePath);
             var sheet = workBook.Worksheets.First();
@@ -24,46 +19,64 @@ namespace App2.Services
                 int rowNumber = row.RowNumber();
                 string productURL = sheet.Cell($"C{rowNumber}").ToString();
 
-                sheet.Cell($"B{rowNumber}").Value = UpdateProductPrice(productURL);
+                sheet.Cell($"B{rowNumber}").Value = WebServices.Parse(productURL);
             }
             workBook.SaveAs(filePath);
         }
 
-
-        public async static Task<int> UpdatePricesInAllFiles()
+        public static ObservableCollection<FileDataItem> MakeExelFileIntoMatrix (string filePath)
         {
-            int res = 0;
-            
-            var estimateFiles = await App.EstimateFileDB.GetEstimateFilesList();
+            var workbook = new XLWorkbook(file: filePath);
+            var worksheet = workbook.Worksheets.First();
 
-            for (int i = 0; i < estimateFiles.Count; i++)
+            int rows = worksheet.RowsUsed().Count();
+            var collection = new ObservableCollection<FileDataItem>();
+
+            for (int row = 1; row <= rows; row++)
             {
-                EstimateFile estimateFile = estimateFiles[i];
-
-                if (estimateFile != null)
+                collection.Add( new FileDataItem
                 {
-                    res = 1;
-
-                    UpdateExcelFiles(estimateFile.FilePath);
-
-                    estimateFile.CreatedDate = DateTime.Now;
-                    await App.EstimateFileDB.SavaEstimateFile(estimateFile);
-                }
+                    rowNumber = row,
+                    Name = worksheet.Cell($"A{row}").Value.ToString(),
+                    Price = worksheet.Cell($"B{row}").Value.ToString(),
+                    Link = worksheet.Cell($"C{row}").Value.ToString(),
+                } );
             }
-            return res;
+            return collection;
         }
 
-        public static int UpdatePricesInFile (string filePath)
+        public static void UpdateProductLink (string productLink, string filePath, int rowNumber)
         {
-            try
-            {
-                UpdateExcelFiles(filePath);
-                return 1;
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
-            }
+            var workbook = new XLWorkbook(file: filePath);
+            var worksheet = workbook.Worksheets.First();
+
+            worksheet.Cell($"C{rowNumber}").SetValue(productLink);
+
+            workbook.SaveAs(filePath);
+        }
+
+        public static void RemoveProduct(int rowNumber, string filePath)
+        {
+            var workbook = new XLWorkbook(filePath);
+            var worksheet = workbook.Worksheets.First();
+
+            worksheet.Row(rowNumber).Delete();
+
+            workbook.SaveAs(filePath);
+        }
+
+        public static void AddNewProduct(string filePath, FileDataItem product)
+        {
+            var workbook = new XLWorkbook(filePath);
+            var worksheet = workbook.Worksheets.First();
+
+            int rowNumber = worksheet.RowsUsed().Count() + 1;
+
+            worksheet.Cell($"A{rowNumber}").SetValue(product.Name);
+            worksheet.Cell($"B{rowNumber}").SetValue(product.Price);
+            worksheet.Cell($"C{rowNumber}").SetValue(product.Link);
+
+            workbook.SaveAs(filePath);
         }
     }
 }

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:App2.Data"
+             xmlns:viewmodels="clr-namespace:App2.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:DataType="viewmodels:DitalFileViewModel"
+             x:Class="App2.Views.DitalFilePage"
+             x:Name="File"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="plus.png" Command="{Binding AddNewProductCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout x:Name="mainLayout">
+
+            <Frame BackgroundColor="Crimson">
+                <Grid Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7.0*"/>
+                        <ColumnDefinition Width="3.0*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Наименование товара" VerticalOptions="Center" Grid.Column="0" HorizontalTextAlignment="Center"/>
+                    <Label Text="Цена" VerticalOptions="Center" Grid.Column="1" HorizontalTextAlignment="Center"/>
+
+                    <BoxView BackgroundColor="Crimson" WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="Fill"/>
+                    <BoxView BackgroundColor="Crimson" WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="Fill"/>
+                </Grid>
+            </Frame>
+
+            <ListView ItemsSource="{Binding FileRows}"
+                      SelectionMode="None"
+                      SeparatorVisibility="None">
+
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior
+                        EventName="ItemTapped"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"/>
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:FileDataItem">
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Ссылка"
+                                          Command="{Binding Source={x:Reference File}, Path=BindingContext.AddLinkCommand}"
+                                          CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Удалить"
+                                          Command="{Binding Source={x:Reference File}, Path=BindingContext.RemoveProductCommand}"
+                                          CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+                            
+                            <Frame BorderColor="Black" Padding="0">
+                                <Grid Padding="0" RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7.0*"/>
+                                        <!--<ColumnDefinition Width="3.3*"/>-->
+                                        <ColumnDefinition Width="3.0*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Margin="10, 0, 0, 0" Text="{Binding Name}" VerticalOptions="Center" TextColor="Black" Grid.Column="0" HorizontalTextAlignment="Start" MaxLines="1"/>
+                                    <Label Margin="10, 0, 0, 0" Text="{Binding Price}" TextColor="Black" VerticalOptions="Center" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                    <!--<Label Margin="10, 0, 0, 0" Text="{Binding Link}" TextColor="Black" VerticalOptions="Center" Grid.Column="2" HorizontalTextAlignment="End"/>-->
+
+
+                                    <BoxView BackgroundColor="Black" WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="Fill"/>
+                                    <BoxView BackgroundColor="Black" WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="Fill"/>
+                                    <!--<BoxView BackgroundColor="Black" WidthRequest="1" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="Fill"/>-->
+
+                                </Grid>
+                            </Frame>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Обновить цены" BackgroundColor="Blue" TextColor="White"
+                    Margin="30, 0, 30, 30" CornerRadius="30" FontSize="18"
+                    Command="{Binding UpdatePricesCommand}" VerticalOptions="End"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

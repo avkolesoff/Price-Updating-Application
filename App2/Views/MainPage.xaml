@@ -1,34 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:App2.Models" 
+             xmlns:viewmodels="clr-namespace:App2.ViewModels"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:DataType="viewmodels:MainViewModel"
              x:Class="App2.Views.MainPage"
-             Title="Добавить файл">
-             
+             x:Name="Main"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        
-        <StackLayout Padding="15, 30, 15, 30">
+        <StackLayout>
 
-            <Label Text="Актуализация цен"
-                   FontSize="20" 
-                   TextColor="Black" 
-                   FontAttributes="Bold"
-                   HorizontalOptions="CenterAndExpand"
-                   HorizontalTextAlignment="Center"></Label>
+            <ListView ItemsSource="{Binding Files}"
+                      SelectionMode="None"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      Margin="0, 10, 0, 0"
+                      x:Name="filesListView">
 
-            <Label Text="Чтобы узнать актуальные цены товаров вашей сметы, загрузите файл" 
-                   FontSize="15" 
-                   TextColor="Black" 
-                   HorizontalTextAlignment="Center"
-                   ></Label>
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior
+                        EventName="ItemTapped"
+                        Command="{Binding SelectedCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"/>
+                </ListView.Behaviors>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:EstimateFile">
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Удалить"
+                                          Command="{Binding Source={x:Reference Main}, Path=BindingContext.RemoveFileCommand}"
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True"/>
+                            </ViewCell.ContextActions>
+                            <Grid Padding="10, 5, 10, 5">
+                                <Frame CornerRadius="15" HasShadow="True">
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout VerticalOptions="Center">
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="15"
+                                                   TextColor="Black"
+                                                   Text="{Binding FileName}"
+                                                   MaxLines="1"/>
+                                            <Label VerticalOptions="Center"
+                                                   FontSize="10"
+                                                   TextColor="Silver"
+                                                   Text="{Binding CreatedDate}"/>       
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <Button Text="Добавить файл"
-                    BackgroundColor="Blue"
-                    TextColor="White"
-                    Margin="10, 200, 10, 10"
-                    CornerRadius="13"
+            <Button Text="{Binding AddButtonText}"
                     FontSize="18"
-                    Clicked="AddFileButton_Clicked"
-                    ></Button>
+                    Margin="15, 15, 15, 30"
+                    BackgroundColor="Blue"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="End"
+                    Command="{Binding AddFileCommand}"
+                    CornerRadius="30"
+                    x:Name="addFileButton"/> 
 
         </StackLayout>
     </ContentPage.Content>

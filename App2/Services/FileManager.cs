@@ -17,9 +17,9 @@ namespace App2.Services
             foreach (var row in rows)
             {
                 int rowNumber = row.RowNumber();
-                string productURL = sheet.Cell($"C{rowNumber}").ToString();
+                string productURL = sheet.Cell($"C{rowNumber}").Value.ToString();
 
-                sheet.Cell($"B{rowNumber}").Value = WebServices.Parse(productURL);
+                sheet.Cell($"B{rowNumber}").SetValue(WebServices.Parse(productURL));
             }
             workBook.SaveAs(filePath);
         }

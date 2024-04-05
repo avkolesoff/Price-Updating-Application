@@ -14,7 +14,7 @@ namespace App2.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private Page _page;
+        private readonly Page _page;
         public string AddButtonText { get; set; }
         public ObservableCollection<EstimateFile> Files { get; set; }
         public AsyncCommand AddFileCommand { get; set; }
@@ -33,7 +33,6 @@ namespace App2.ViewModels
             AddFileCommand = new AsyncCommand(AddFile);
             RemoveFileCommand = new AsyncCommand<EstimateFile>(RemoveFile);
             SelectedCommand = new AsyncCommand<EstimateFile>(Selected);
-            _page = page;
         }
 
         private async void LoadEstimateFises ()

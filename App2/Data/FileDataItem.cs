@@ -9,13 +9,5 @@ namespace App2.Data
         public string Name { get; set; }
         public string Price { get; set; }
         public string Link { get; set; }
-        //public Marketplace Marketplace { get; set; } = SetMarketplace();
-
-        private static Marketplace SetMarketplace()
-        {
-            string MPname = string.Empty;
-
-            return new Marketplace(MPname);
-        }
     }
 }

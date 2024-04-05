@@ -1,14 +1,13 @@
-﻿using App2.Data;
+﻿using App2.Data;    
 using App2.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.ObjectModel;
+
 
 namespace App2.Services
 {
     public class PricesUpdater
-    {
+    {   
         public async static void UpdatePricesInAllFiles()
         {
             var estimateFiles = await EstimateFileService.GetEstimates();

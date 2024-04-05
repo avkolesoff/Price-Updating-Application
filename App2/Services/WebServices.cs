@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace App2.Services
 {
@@ -7,10 +8,10 @@ namespace App2.Services
     {
         public static string Parse(string productURL)
         {
-            return "10000 р.";
+            return "000";
         }
 
-        public static async System.Threading.Tasks.Task OpenProductOnWebsite (string productURL)
+        public static async Task OpenProductOnWebsite (string productURL)
         {
             try
             {

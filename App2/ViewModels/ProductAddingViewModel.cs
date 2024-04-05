@@ -10,8 +10,8 @@ namespace App2.ViewModels
 {
     public class ProductAddingViewModel : BaseViewModel
     {
-        private Page _page;
-        public EstimateFile Estimate { get; set; }
+        private readonly Page _page;
+        public EstimateFile Estimate;
         public string Name { get; set; } = string.Empty;
         public string Price { get; set; } = string.Empty;
         public string Link { get; set; } = string.Empty;

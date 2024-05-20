@@ -43,9 +43,7 @@ namespace App2.ViewModels
                 Link = Link,
             };
 
-            var formValid = ValidateForm(product);
-
-            if (formValid)
+            if (ValidateForm(product))
             {
                 await _page.Navigation.PushAsync(new DitalFilePage(Estimate, product));
                 _page.Navigation.RemovePage(_page);

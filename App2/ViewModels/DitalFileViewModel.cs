@@ -6,7 +6,7 @@ using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows.Input; 
 using Xamarin.Forms;
 using Command = MvvmHelpers.Commands.Command;
 
@@ -23,23 +23,31 @@ namespace App2.ViewModels
         public AsyncCommand AddNewProductCommand { get; set; }
         public EstimateFile Estimate { get; set; }
 
+
         public DitalFileViewModel(EstimateFile estimate, Page page, FileDataItem product = null)
         {
-            Page = page;
-            Estimate = estimate;
-            Title = Estimate.FileName;
-            FileRows = Estimate.GetTableData();
+            DefineCommands();
+            DefineVariables(estimate, page);
 
+            if (product != null) SaveAddedProduct(product);
+            
+        }
+
+        private void DefineCommands()
+        {
             UpdatePricesCommand = new Command(UpdatePrices);
             SelectedCommand = new MvvmHelpers.Commands.Command<FileDataItem>(Selected);
             RemoveProductCommand = new MvvmHelpers.Commands.Command<FileDataItem>(RemoveProduct);
             AddLinkCommand = new AsyncCommand<FileDataItem>(AddLink);
             AddNewProductCommand = new AsyncCommand(AddNewProduct);
+        }
 
-            if (product != null)
-            {
-                SaveAddedProduct(product);
-            }
+        private void DefineVariables(EstimateFile estimate, Page page)
+        {
+            Page = page;
+            Estimate = estimate;
+            Title = Estimate.FileName;
+            FileRows = Estimate.GetTableData();
         }
 
         private void UpdatePrices ()

@@ -14,7 +14,7 @@ namespace App2.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly Page _page;
+        private Page _page;
         public string AddButtonText { get; set; }
         public ObservableCollection<EstimateFile> Files { get; set; }
         public AsyncCommand AddFileCommand { get; set; }
@@ -23,16 +23,25 @@ namespace App2.ViewModels
 
         public MainViewModel(Page page)
         {
+            DefineVariables(page);
+            DefineCommands();
+        }
+
+        private void DefineCommands()
+        {
+            AddFileCommand = new AsyncCommand(AddFile);
+            RemoveFileCommand = new AsyncCommand<EstimateFile>(RemoveFile);
+            SelectedCommand = new AsyncCommand<EstimateFile>(Selected);
+        }
+
+        private void DefineVariables(Page page)
+        {
             Title = "Мои файлы";
             AddButtonText = "Добавить файл";
             _page = page;
 
             Files = new ObservableCollection<EstimateFile>();
             LoadEstimateFises();
-
-            AddFileCommand = new AsyncCommand(AddFile);
-            RemoveFileCommand = new AsyncCommand<EstimateFile>(RemoveFile);
-            SelectedCommand = new AsyncCommand<EstimateFile>(Selected);
         }
 
         private async void LoadEstimateFises ()
